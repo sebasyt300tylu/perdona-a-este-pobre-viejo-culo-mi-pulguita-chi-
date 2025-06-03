@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<title>Para mi pulguita 💖</title>
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    background: #ffe4ec;
+    overflow: hidden;
+    font-family: 'Georgia', serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #4b004b;
+    position: relative;
+  }
+
+  h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+  }
+
+  #message {
+    font-size: 1.3em;
+    max-width: 600px;
+    text-align: center;
+    line-height: 1.5;
+    min-height: 6em;
+  }
+
+  .heart {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background: #c60063;
+    transform: rotate(-45deg);
+    animation: floatUp linear forwards;
+    opacity: 0.8;
+  }
+  .heart:before,
+  .heart:after {
+    content: "";
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background: #c60063;
+    border-radius: 50%;
+  }
+  .heart:before {
+    top: -15px;
+    left: 0;
+  }
+  .heart:after {
+    left: 15px;
+    top: 0;
+  }
+
+  @keyframes floatUp {
+    0% {
+      transform: translateY(0) rotate(-45deg);
+      opacity: 0.8;
+    }
+    100% {
+      transform: translateY(-600px) rotate(-45deg);
+      opacity: 0;
+    }
+  }
+
+  #music-btn {
+    margin-top: 30px;
+    background: #c60063;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 12px 25px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  #music-btn:hover {
+    background: #a00450;
+  }
+</style>
+</head>
+<body>
+
+<h1>💖 Para mi Pulguita 💖</h1>
+<div id="message"></div>
+<button id="music-btn">🎵 Reproducir música</button>
+
+<audio id="audio" loop>
+  <source src="te_lo_prometo.mp3" type="audio/mpeg" />
+  Tu navegador no soporta audio.
+</audio>
+
+<script>
+  const text = "Mi pulguita hermosa, preciosa, divina... la más linda de toda Honduras. ¿Perdonarías a este pobre señor de 85 años por olvidar una fecha tan importante? Tú sabes que te amo muchísimo, pero soy malísimo para las fechas. Aun así, mi amor por ti no se me olvida nunca. Siempre te amaré, mi pulguita hermosa. ¿Me perdonas? ¿Chi? 🥺❤️";
+  const messageEl = document.getElementById('message');
+  let index = 0;
+
+  function typeWriter() {
+    if (index < text.length) {
+      messageEl.innerHTML += text.charAt(index);
+      index++;
+      setTimeout(typeWriter, 50);
+    }
+  }
+  typeWriter();
+
+  function createHeart() {
+    const heart = document.createElement('div');
+    heart.classList.add('heart');
+    heart.style.left = Math.random() * window.innerWidth + 'px';
+    heart.style.animationDuration = (3 + Math.random() * 3) + 's';
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+      heart.remove();
+    }, 6000);
+  }
+
+  setInterval(createHeart, 500);
+
+  const musicBtn = document.getElementById('music-btn');
+  const audio = document.getElementById('audio');
+  let playing = false;
+
+  musicBtn.addEventListener('click', () => {
+    if (!playing) {
+      audio.play();
+      musicBtn.textContent = '⏸️ Pausar música';
+      playing = true;
+    } else {
+      audio.pause();
+      musicBtn.textContent = '🎵 Reproducir música';
+      playing = false;
+    }
+  });
+</script>
+
+</body>
+</html>
